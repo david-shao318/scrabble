@@ -103,12 +103,8 @@ class Scrabble:
 if __name__ == '__main__':
     try:
         # create Scrabble object with list of words from dictionary text file
-        try:
-            with open(input('Enter dictionary file: ')) as word_list:
-                scrabbler = Scrabble(word_list.read().split())
-        except FileNotFoundError:
-            print('Unable to find file.')
-            raise KeyboardInterrupt
+        with open(input('Enter dictionary file: ')) as word_list:
+            scrabbler = Scrabble(word_list.read().split())
 
         while True:
             usr_input = input('\nEnter letters: ')
