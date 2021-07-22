@@ -108,7 +108,7 @@ if __name__ == '__main__':
                 scrabbler = Scrabble(word_list.read().split())
         except OSError:
             print('Unable to find file.')
-            raise KeyboardInterrupt
+            raise EOFError
 
         while True:
             usr_input = input('\nEnter letters: ')
