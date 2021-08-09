@@ -1,9 +1,10 @@
 # Scrabble Word Finder
 
 class Scrabble:
-    def __init__(self, words: list[str]) -> None:
+    def __init__(self, words: list[str]):
         """
-        :param words: list of words to use a dictionary
+        initialize trie
+        :param words: list of words to use as dictionary
         """
         
         # declare instance variables
@@ -20,13 +21,18 @@ class Scrabble:
             curr_dict['_end_'] = '_end_'
 
         # trie structure is a set of nested dicts (value), with each letter as the key
-        # the '_end_' denotes the end of a word; e.g., below is the indefinite article 'a'
-        # self._root = { 'a': { '_end_': '_end_', ... },
+        # the '_end_' denotes the end of a word
+        # e.g., below is the indefinite article 'a' and the noun 'aa'
+        # self._root = { 'a': { '_end_': '_end_',
+        #                       'a': { '_end_': '_end_', ... },
+        #                       ... },
         #                'b': { ... },
         #                ... }
 
+        
     def scrabble(self, letters: str, length: int) -> list[str]:
         """
+        find possible words, given a group of letters
         :param letters: scrabble letters available
         :param length: length of words to find
         :return: possible words
@@ -44,7 +50,7 @@ class Scrabble:
         
         return self.possible_words
 
-    def _recursive_find(self, root: dict, prefix: str = '') -> None:
+    def _recursive_find(self, root: dict, prefix: str = ''):
         """
         :param root: dictionary trie
         :param prefix: letters above current root
@@ -65,23 +71,7 @@ class Scrabble:
                     elif '_end_' in root[letter]:
                         self.possible_words.append(new_prefix)
 
-    def _recursive_auto(self, root: dict, prefix: str = '') -> None:
-        """
-        :param root: dictionary trie
-        :param prefix: letters above current root
-        """
-        
-        # for every letter in root trie:
-        for letter in root:
-            
-            # if at end, add prefix (full word) to output list
-            if letter == '_end_':
-                self.possible_words.append(prefix)
-            
-            # else, call self with new root and new prefix
-            else:
-                self._recursive_auto(root[letter], prefix + letter)
-
+                        
     def autocomplete(self, prefix: str) -> list[str]:
         self.possible_words = []  # reset list
         
@@ -97,6 +87,23 @@ class Scrabble:
         self._recursive_auto(root, prefix)
         
         return self.possible_words
+    
+    def _recursive_auto(self, root: dict, prefix: str = ''):
+        """
+        :param root: dictionary trie
+        :param prefix: letters above current root
+        """
+        
+        # for every letter in root trie:
+        for letter in root:
+            
+            # if at end, add prefix (full word) to output list
+            if letter == '_end_':
+                self.possible_words.append(prefix)
+            
+            # else, call self with new root and new prefix
+            else:
+                self._recursive_auto(root[letter], prefix + letter)
 
 
 # driver code
