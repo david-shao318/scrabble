@@ -78,6 +78,7 @@ class Scrabble:
         :param prefix: starting letters of word
         :return: list of possible words
         """
+
         self.possible_words = []  # reset list
         
         # locate base root at prefix
