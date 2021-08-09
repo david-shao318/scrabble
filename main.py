@@ -73,6 +73,11 @@ class Scrabble:
 
                         
     def autocomplete(self, prefix: str) -> list[str]:
+        """
+        autocomplete words, given a prefix
+        :param prefix: starting letters of word
+        :return: list of possible words
+        """
         self.possible_words = []  # reset list
         
         # locate base root at prefix
